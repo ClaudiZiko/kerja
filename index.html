@@ -113,20 +113,6 @@
         .popup p {
             margin-top: 10px;
         }
-
-        .popup button {
-            margin-top: 10px;
-            padding: 10px;
-            border: none;
-            background-color: #ff6b6b;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .popup button:hover {
-            background-color: #ff4757;
-        }
     </style>
 </head>
 <body>
@@ -153,7 +139,6 @@
     <div class="popup" id="welcome-popup">
         <h3>Selamat Datang!</h3>
         <p>Terima kasih telah bergabung dengan AikGym. Kami siap membantu Anda mencapai tujuan kebugaran Anda!</p>
-        <button onclick="closePopup()">Tutup</button>
     </div>
 
     <script>
@@ -192,15 +177,6 @@
                 window.location.href = 'gym1.html'; // Arahkan ke gym1.html
             }
         });
-
-        // Fungsi untuk menutup popup
-        function closePopup() {
-            const popup = document.getElementById('welcome-popup');
-            popup.style.opacity = 0; // Membuat popup menghilang
-            setTimeout(() => {
-                popup.style.display = 'none'; // Menyembunyikan popup setelah animasi
-            }, 500); // Sesuaikan dengan durasi animasi
-        }
 
         // Menampilkan popup secara otomatis saat halaman dimuat
         window.onload = function() {

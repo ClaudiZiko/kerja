@@ -7,48 +7,12 @@
     <title>Selamat Datang di AikGym</title>
     <style>
         /* Animasi Keyframes */
-        @keyframes fadeInUp {
+        @keyframes fadeIn {
             0% {
                 opacity: 0;
-                transform: translateY(20px);
             }
             100% {
                 opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-15px);
-            }
-            60% {
-                transform: translateY(-8px);
-            }
-        }
-
-        @keyframes slideDown {
-            0% {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes popupFadeIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
             }
         }
 
@@ -86,7 +50,6 @@
             color: #ff6b6b;
             text-align: center;
             margin-bottom: 20px;
-            animation: bounce 2s infinite;
         }
 
         h2 {
@@ -94,7 +57,6 @@
             color: #333;
             border-bottom: 2px solid #ff6b6b;
             padding-bottom: 5px;
-            animation: fadeInUp 2s ease-out;
         }
 
         ul {
@@ -110,19 +72,10 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             transition: background 0.3s ease;
-            animation: fadeInUp 2s ease-out;
         }
 
         ul li:hover {
             background: #ff4757;
-        }
-
-        img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            animation: fadeInUp 1.5s ease-out;
         }
 
         .scroll-indicator {
@@ -134,40 +87,41 @@
             padding: 10px 20px;
             border-radius: 10px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            animation: slideDown 1s ease-in-out;
             z-index: 1000; /* Memastikan tetap di atas konten */
         }
 
-        /* Popup Style */
+        /* Gaya Popup */
         .popup {
-            display: none; /* Sembunyikan popup secara default */
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.9);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            z-index: 1001; /* Di atas scroll indicator */
-            animation: popupFadeIn 0.5s ease-out;
-            text-align: center;
-            width: 80%; /* Lebar popup */
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+            z-index: 2000; /* Memastikan popup di atas konten lainnya */
         }
 
-        .popup h2 {
+        .popup h3 {
+            margin: 0;
             color: #ff6b6b;
+        }
+
+        .popup p {
+            margin-top: 10px;
         }
 
         .popup button {
             margin-top: 10px;
+            padding: 10px;
+            border: none;
             background-color: #ff6b6b;
             color: white;
-            border: none;
-            padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
-            transition: background 0.3s;
         }
 
         .popup button:hover {
@@ -196,9 +150,9 @@
     </main>
 
     <!-- Popup -->
-    <div class="popup" id="popup">
-        <h2>Informasi Penting!</h2>
-        <p>Selamat datang di AikGym! Gulir ke bawah untuk menjelajahi layanan kami.</p>
+    <div class="popup" id="welcome-popup">
+        <h3>Selamat Datang!</h3>
+        <p>Terima kasih telah bergabung dengan AikGym. Kami siap membantu Anda mencapai tujuan kebugaran Anda!</p>
         <button onclick="closePopup()">Tutup</button>
     </div>
 
@@ -210,12 +164,8 @@
             let st = window.pageYOffset || document.documentElement.scrollTop;
             if (event.deltaY > 0) { // Scroll ke bawah
                 if (st < window.innerHeight && lastScrollTop < st) {
-                    // Tampilkan popup
-                    document.getElementById('popup').style.display = 'block';
-                    // Arahkan ke gym1.html setelah 2 detik
-                    setTimeout(() => {
-                        window.location.href = 'gym1.html';
-                    }, 2000);
+                    // Arahkan ke gym1.html
+                    window.location.href = 'gym1.html';
                 }
             } else { // Scroll ke atas
                 if (st > window.innerHeight && lastScrollTop > st) {
@@ -239,19 +189,27 @@
             if (touchStartY < touchEndY) { // Scroll ke atas
                 window.location.href = 'index.html'; // Kembali ke halaman utama
             } else if (touchStartY > touchEndY) { // Scroll ke bawah
-                // Tampilkan popup
-                document.getElementById('popup').style.display = 'block';
-                // Arahkan ke gym1.html setelah 2 detik
-                setTimeout(() => {
-                    window.location.href = 'gym1.html';
-                }, 2000);
+                window.location.href = 'gym1.html'; // Arahkan ke gym1.html
             }
         });
 
         // Fungsi untuk menutup popup
         function closePopup() {
-            document.getElementById('popup').style.display = 'none';
+            const popup = document.getElementById('welcome-popup');
+            popup.style.opacity = 0; // Membuat popup menghilang
+            setTimeout(() => {
+                popup.style.display = 'none'; // Menyembunyikan popup setelah animasi
+            }, 500); // Sesuaikan dengan durasi animasi
         }
+
+        // Menampilkan popup secara otomatis saat halaman dimuat
+        window.onload = function() {
+            const popup = document.getElementById('welcome-popup');
+            popup.style.display = 'block'; // Menampilkan popup
+            setTimeout(() => {
+                popup.style.opacity = 1; // Membuat popup muncul
+            }, 10); // Menunggu sejenak sebelum mulai animasi
+        };
     </script>
 </body>
 </html>

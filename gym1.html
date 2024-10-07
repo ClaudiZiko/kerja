@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang Kami - AikGym</title>
+    <style>
+        /* Animasi Keyframes */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-15px);
+            }
+            60% {
+                transform: translateY(-8px);
+            }
+        }
+
+        /* Gaya dan Animasi */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #f0f0f0, #e0e0e0);
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #ff6b6b;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ffe066;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        section {
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin: 20px 0;
+            padding: 30px;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        section:hover {
+            transform: scale(1.02);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #ff6b6b;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #333;
+            border-bottom: 2px solid #ff6b6b;
+            padding-bottom: 5px;
+            animation: fadeInUp 2s ease-out;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        ul li {
+            background: #ff6b6b;
+            color: white;
+            margin: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease;
+            animation: fadeInUp 2s ease-out;
+            width: 30%;
+            text-align: center;
+        }
+
+        ul li:hover {
+            background: #ff4757;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        footer {
+            background-color: #ff6b6b;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="classes.html">Kelas</a></li>
+                <li><a href="contact.html">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h1>Tentang Kami</h1>
+            <p>AikGym adalah pusat kebugaran yang didirikan pada [Tahun] dengan misi menyediakan lingkungan yang mendukung dan memotivasi anggota kami untuk mencapai tujuan kebugaran mereka.</p>
+            <img src="images/about-image.jpg" alt="Gambar Tentang Kami">
+        </section>
+        <section>
+            <h2>Tim Kami</h2>
+            <ul>
+                <li>
+                    <img src="images/team-member1.jpg" alt="Anggota Tim 1">
+                    <h3>Bunda Aik</h3>
+                    <p>Pelatih Pribadi</p>
+                </li>
+                <li>
+                    <img src="images/team-member2.jpg" alt="Anggota Tim 2">
+                    <h3>Mas Nino</h3>
+                    <p>Instruktur Kebugaran Grup</p>
+                </li>
+                <li>
+                    <img src="images/team-member3.jpg" alt="Anggota Tim 3">
+                    <h3>Mas Sandi</h3>
+                    <p>Instruktur Kebugaran Grup</p>
+                </li>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 AikGym. Semua hak cipta dilindungi.</p>
+    </footer>
+</body>
+</html>

@@ -9,20 +9,21 @@
         /* Animasi Keyframes */
         @keyframes fadeIn {
             0% {
-                opacity: 0; /* Memulai dari transparan */
+                opacity: 0;
             }
             100% {
-                opacity: 1; /* Menjadi terlihat */
+                opacity: 1;
             }
         }
 
-        /* Gaya dan Animasi */
+        /* Latar Belakang Gradasi */
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to bottom, #f0f0f0, #e0e0e0);
-            color: #333;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
+            line-height: 1.6;
+            background: linear-gradient(to bottom, #ff7f7f, #ffb3b3);
+            animation: fadeIn 1s ease-in-out;
             overflow: hidden; /* Menyembunyikan scrollbar */
         }
 
@@ -30,162 +31,79 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-height: 80vh; /* Menggunakan tinggi minimal */
+            justify-content: center; /* Memposisikan konten di tengah */
         }
 
         section {
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
             margin: 20px 0;
-            padding: 30px;
-            height: 100vh; /* Memastikan setiap section mengambil seluruh tinggi layar */
-        }
-
-        section:hover {
-            transform: scale(1.02);
+            padding: 40px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s; /* Animasi pada section */
+            flex-grow: 1; /* Memastikan section mengisi ruang */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center; /* Memposisikan teks di tengah */
         }
 
         h1 {
-            font-size: 2.5em;
+            font-size: 3em;
             color: #ff6b6b;
-            text-align: center;
             margin-bottom: 20px;
         }
 
-        h2 {
-            font-size: 2em;
-            color: #333;
-            border-bottom: 2px solid #ff6b6b;
-            padding-bottom: 5px;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        ul li {
-            background: #ff6b6b;
+        .teka-button {
+            background-color: #ff6b6b;
             color: white;
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border: none;
+            border-radius: 5px;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            cursor: pointer;
+            margin-top: 20px; /* Mengatur jarak atas tombol */
             transition: background 0.3s ease;
+            animation: fadeIn 1s; /* Animasi pada tombol */
         }
 
-        ul li:hover {
-            background: #ff4757;
+        .teka-button:hover {
+            background-color: #ff4757; /* Warna saat hover */
         }
 
-        .scroll-indicator {
-            position: fixed;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.8);
-            padding: 10px 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            z-index: 1000; /* Memastikan tetap di atas konten */
-        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em; /* Ukuran font lebih kecil untuk ponsel */
+            }
 
-        /* Gaya Popup */
-        .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            opacity: 0; /* Memulai dari transparan */
-            animation: fadeIn 0.5s forwards; /* Efek fade in */
-            z-index: 2000; /* Memastikan popup di atas konten lainnya */
-        }
-
-        .popup h3 {
-            margin: 0;
-            color: #ff6b6b;
-        }
-
-        .popup p {
-            margin-top: 10px;
+            .teka-button {
+                font-size: 1.2em; /* Ukuran font lebih kecil untuk tombol */
+                padding: 10px 20px; /* Mengurangi padding tombol pada ponsel */
+            }
         }
     </style>
 </head>
 <body>
-    <div class="scroll-indicator">
-        <p>Gulir ke bawah untuk melihat layanan kami!</p>
-    </div>
     <main>
         <section id="welcome-section">
             <h1>Selamat Datang di AikGym</h1>
             <p>AikGym adalah pusat kebugaran yang berlokasi di Jl. Bhayangkara No. 30. Misi kami adalah menyediakan lingkungan yang mendukung dan memotivasi anggota kami untuk mencapai tujuan kebugaran mereka.</p>
-            <img src="images/gym-image.jpg" alt="Gambar Gym">
         </section>
-        <section id="services-section">
-            <h2>Layanan Kami</h2>
-            <ul>
-                <li>Peralatan dan fasilitas terkini</li>
-                <li>Pelatihan pribadi dan kelas kelompok dari ahli</li>
-                <li>Lingkungan yang bersih dan nyaman</li>
-            </ul>
-        </section>
+
+        <button class="teka-button" id="teka-button">Teka untuk menuju halaman selanjutnya</button>
     </main>
 
-    <!-- Popup -->
-    <div class="popup" id="welcome-popup">
-        <h3>Selamat Datang!</h3>
-        <p>Terima kasih telah bergabung dengan AikGym. Kami siap membantu Anda mencapai tujuan kebugaran Anda!</p>
-    </div>
-
     <script>
-        // Menambahkan event listener untuk scroll
-        let lastScrollTop = 0;
-
-        window.addEventListener('wheel', function(event) {
-            let st = window.pageYOffset || document.documentElement.scrollTop;
-            if (event.deltaY > 0) { // Scroll ke bawah
-                if (st < window.innerHeight && lastScrollTop < st) {
-                    // Arahkan ke gym1.html
-                    window.location.href = 'gym1.html';
-                }
-            } else { // Scroll ke atas
-                if (st > window.innerHeight && lastScrollTop > st) {
-                    // Kembali ke halaman utama
-                    window.location.href = 'index.html';
-                }
-            }
-            lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+        // Menambahkan event listener untuk tombol
+        document.getElementById('teka-button').addEventListener('click', function() {
+            window.location.href = 'gym1.html'; // Alihkan ke gym1.html
         });
-
-        // Menambahkan event listener untuk touch devices
-        let touchStartY;
-
-        window.addEventListener('touchstart', function(event) {
-            touchStartY = event.touches[0].clientY;
-        });
-
-        window.addEventListener('touchmove', function(event) {
-            const touchEndY = event.touches[0].clientY;
-
-            if (touchStartY < touchEndY) { // Scroll ke atas
-                window.location.href = 'index.html'; // Kembali ke halaman utama
-            } else if (touchStartY > touchEndY) { // Scroll ke bawah
-                window.location.href = 'gym1.html'; // Arahkan ke gym1.html
-            }
-        });
-
-        // Menampilkan popup secara otomatis saat halaman dimuat
-        window.onload = function() {
-            const popup = document.getElementById('welcome-popup');
-            popup.style.display = 'block'; // Menampilkan popup
-            setTimeout(() => {
-                popup.style.opacity = 1; // Membuat popup muncul
-            }, 10); // Menunggu sejenak sebelum mulai animasi
-        };
     </script>
 </body>
 </html>

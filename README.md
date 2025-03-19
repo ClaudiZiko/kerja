@@ -25,6 +25,9 @@
 # "Well, that's it for now. I’m on March 2nd, 2025." :)
 
 
+
+
+
 # "( 05.42) 20 march 2025"
 
 # "em, Yesterday, on March 19, 2025, at exactly 18:21, I realized that this might be our last meeting before we become strangers again and go on with our separate lives. Yeah, I regret it—I couldn't say those words, not even until the very last moment."
@@ -33,4 +36,4 @@
 
 # "It was beautiful, making memories with them. I just wish I had been brave enough to admit that I loved them."
 
-![header](https://raw.githubusercontent.com/ClaudiZiko/OnlyMee/e9d52b08cb57e0b8719a8dae8c7bf74b04c4f1ee/nama-gambar.jpg)
+(https://raw.githubusercontent.com/ClaudiZiko/OnlyMee/e9d52b08cb57e0b8719a8dae8c7bf74b04c4f1ee/nama-gambar.jpg)

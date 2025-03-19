@@ -34,6 +34,6 @@
 
 # "Today, March 20, I'm heading back to my hometown, the place where I was born. I have some things to take care of before Eid arrives."
 
-# "It was beautiful, making memories with them. I just wish I had been brave enough to admit that I loved them."
+# "It was beautiful, making memories with her. I just wish I had been brave enough to admit that I loved her."
 
 ![Gambar](https://raw.githubusercontent.com/ClaudiZiko/OnlyMee/ClaudiZikoMyne/IMG_20250220_234820.png)

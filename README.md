@@ -37,3 +37,5 @@
 # "It was beautiful making memories with her. I just wish I had been brave enough to admit that I loved her."
 
 ![Gambar](https://raw.githubusercontent.com/ClaudiZiko/OnlyMee/ClaudiZikoMyne/IMG_20250220_234820.png)
+
+### I already made a website called "Development Stage." I wanted to meet you and have you press it right in front of me—that was the only way I could express it. And I failed. I hope you see this!

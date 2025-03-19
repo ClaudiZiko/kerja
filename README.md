@@ -36,4 +36,4 @@
 
 # "It was beautiful, making memories with them. I just wish I had been brave enough to admit that I loved them."
 
-(https://raw.githubusercontent.com/ClaudiZiko/OnlyMee/e9d52b08cb57e0b8719a8dae8c7bf74b04c4f1ee/nama-gambar.jpg)
+!(https://raw.githubusercontent.com/ClaudiZiko/OnlyMee/e9d52b08cb57e0b8719a8dae8c7bf74b04c4f1ee/nama-gambar.jpg)

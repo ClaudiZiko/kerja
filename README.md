@@ -11,7 +11,7 @@
 # 13.28 I feel like I'm stupid and shouldn't have approached that girl.
 
 
-# I don't know if he likes me or is just playing with me, but this isn't the first time for me.
+# I don't know if her likes me or is just playing with me, but this isn't the first time for me.
 
 
 # there was this girl who used to chase me all the way to my house and tell me she loved me. But I just thought it was puppy love since we were just middle school kids who hadn’t even hit puberty yet.
@@ -24,9 +24,9 @@
 
 # "Well, that's it for now. I’m on March 2nd, 2025." :)
 
-
-
-
+<br>
+<br>
+<br>
 
 # "( 05.42) 20 march 2025"
 
@@ -34,6 +34,6 @@
 
 # "Today, March 20, I'm heading back to my hometown, the place where I was born. I have some things to take care of before Eid arrives."
 
-# "It was beautiful, making memories with her. I just wish I had been brave enough to admit that I loved her."
+# "It was beautiful making memories with her. I just wish I had been brave enough to admit that I loved her."
 
 ![Gambar](https://raw.githubusercontent.com/ClaudiZiko/OnlyMee/ClaudiZikoMyne/IMG_20250220_234820.png)

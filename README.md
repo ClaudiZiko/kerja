@@ -14,7 +14,7 @@
 # I don't know if he likes me or is just playing with me, but this isn't the first time for me.
 
 
- # there was this girl who used to chase me all the way to my house and tell me she loved me. But I just thought it was puppy love since we were just middle school kids who hadn’t even hit puberty yet.
+# there was this girl who used to chase me all the way to my house and tell me she loved me. But I just thought it was puppy love since we were just middle school kids who hadn’t even hit puberty yet.
 
 # So I just ignored her and turned her down. She was a pretty girl, but unfortunately, I had nothing to take responsibility for. That’s what I thought at the time.
 

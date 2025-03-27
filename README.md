@@ -1,3 +1,5 @@
+## "This is a memory I wrote after regretting that I couldn’t do anything."
+
 # em this is all possible because i'm in love.
 
 # I hope you guys don't laugh because I did something that stupid.
@@ -22,7 +24,20 @@
 
 # Now I know what love at first sight is. I can't find the words to explain it; I’m just amazed by the sight of her smiling every moment. She always laughs so happily, and I love seeing it, as if her smile and laughter bring warmth and happiness to everyone around her. I hope I can be that happy too.
 
-# "Well, that's it for now. I’m on March 2nd, 2025." :)
+<<<<<<< HEAD
+# "Well, that's it for now. I’m on March 2nd, 2025. "
+
+# "( 05.42) 20 march 2025"
+
+# "em, Yesterday, on March 19, 2025, at exactly 18:21, I realized that this might be our last meeting before we become strangers again and go on with our separate lives. Yeah, I regret it—I couldn't say those words, not even until the very last moment."
+
+# "Today, March 20, I'm heading back to my hometown, the place where I was born. I have some things to take care of before Eid arrives."
+
+# "It was beautiful, making memories with them. I just wish I had been brave enough to admit that I loved them."
+
+(https://raw.githubusercontent.com/ClaudiZiko/OnlyMee/e9d52b08cb57e0b8719a8dae8c7bf74b04c4f1ee/nama-gambar.jpg)
+=======
+# "Well, that's it for now. I’m on March 2nd, 2025." :
 
 <br>
 <br>
@@ -39,3 +54,5 @@
 ![Gambar](https://raw.githubusercontent.com/ClaudiZiko/OnlyMee/ClaudiZikoMyne/IMG_20250220_234820.png)
 
 ### I already made a website called "Development Stage." I wanted to meet you and have you press it right in front of me—that was the only way I could express it. And I failed. I hope you see this!
+
+>>>>>>> a631b314266e47012d9714d3b3a60141a9d11b1e

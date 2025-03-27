@@ -8,21 +8,21 @@
         body {
             text-align: center;
             font-family: Arial, sans-serif;
-            margin-top: 100px;
             background-color: #ffe4e1;
-            overflow: hidden; /* Mencegah scroll karena tombol kabur */
-            height: 100vh; /* Pastikan seluruh konten dalam satu layar */
+            margin: 0;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden; /* Biar nggak ada scroll */
         }
         .container {
             background: white;
             padding: 20px;
             border-radius: 10px;
-            display: inline-block;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
             position: relative;
+            text-align: center;
         }
         button {
             margin: 10px;
@@ -31,14 +31,17 @@
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
+            position: absolute;
         }
         .yes-btn {
             background-color: #ff69b4;
             color: white;
+            position: static; /* Biar nggak gerak-gerak */
         }
         .no-btn {
             background-color: #d3d3d3;
-            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
         }
         .hidden {
             display: none;
@@ -68,14 +71,6 @@
         function nextQuestion() {
             document.getElementById("step1").classList.add("hidden");
             document.getElementById("step2").classList.remove("hidden");
-
-            let noButton = document.getElementById("noButton");
-            noButton.style.position = "absolute";
-            noButton.style.left = "50%";
-            noButton.style.top = "60%";
-
-            noButton.addEventListener("mouseover", moveButton);
-            noButton.addEventListener("mousedown", moveButton);
         }
 
         function yesAnswer() {
@@ -86,7 +81,7 @@
         function moveButton() {
             let noButton = document.getElementById("noButton");
 
-            let maxX = window.innerWidth - noButton.offsetWidth - 20;
+            let maxX = window.innerWidth - noButton.offsetWidth - 20; // Biar nggak keluar layar
             let maxY = window.innerHeight - noButton.offsetHeight - 20;
 
             let x = Math.random() * maxX;
@@ -95,6 +90,12 @@
             noButton.style.left = `${x}px`;
             noButton.style.top = `${y}px`;
         }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            let noButton = document.getElementById("noButton");
+            noButton.addEventListener("mouseover", moveButton);
+            noButton.addEventListener("click", moveButton);
+        });
     </script>
 </body>
 </html>

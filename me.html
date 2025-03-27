@@ -10,6 +10,11 @@
             font-family: Arial, sans-serif;
             margin-top: 100px;
             background-color: #ffe4e1;
+            overflow: hidden; /* Mencegah scroll karena tombol kabur */
+            height: 100vh; /* Pastikan seluruh konten dalam satu layar */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .container {
             background: white;
@@ -17,6 +22,7 @@
             border-radius: 10px;
             display: inline-block;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
         }
         button {
             margin: 10px;
@@ -32,12 +38,10 @@
         }
         .no-btn {
             background-color: #d3d3d3;
+            position: absolute;
         }
         .hidden {
             display: none;
-        }
-        .no-btn-move {
-            position: absolute;
         }
     </style>
 </head>
@@ -53,7 +57,7 @@
         <h2>Great! I have another question! ❤️</h2>
         <h3>Will you be my girlfriend?</h3>
         <button class="yes-btn" onclick="yesAnswer()">Yes</button>
-        <button class="no-btn no-btn-move" id="noButton">No</button>
+        <button class="no-btn" id="noButton">No</button>
     </div>
 
     <script>
@@ -66,24 +70,27 @@
             document.getElementById("step2").classList.remove("hidden");
 
             let noButton = document.getElementById("noButton");
-            noButton.style.position = "absolute"; // Pastikan tombol bisa berpindah
+            noButton.style.position = "absolute";
+            noButton.style.left = "50%";
+            noButton.style.top = "60%";
+
             noButton.addEventListener("mouseover", moveButton);
             noButton.addEventListener("mousedown", moveButton);
         }
 
         function yesAnswer() {
-            alert("Yay! I love you! ❤️ now you are mine🫵");
+            alert("Yay! I love you! ❤️ now you are mine 🫵");
             window.location.replace('home.html');
         }
 
         function moveButton() {
             let noButton = document.getElementById("noButton");
 
-            let maxX = window.innerWidth - noButton.clientWidth - 20;
-            let maxY = window.innerHeight - noButton.clientHeight - 20;
+            let maxX = window.innerWidth - noButton.offsetWidth - 20;
+            let maxY = window.innerHeight - noButton.offsetHeight - 20;
 
-            let x = Math.floor(Math.random() * maxX);
-            let y = Math.floor(Math.random() * maxY);
+            let x = Math.random() * maxX;
+            let y = Math.random() * maxY;
 
             noButton.style.left = `${x}px`;
             noButton.style.top = `${y}px`;

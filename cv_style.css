@@ -17,7 +17,7 @@ header {
   background-color: #0b3d91;
   color: white;
   position: relative;
-  padding: 40px 20px 80px 20px;
+  padding: 40px 20px 20px 20px;
   overflow: hidden;
 }
 
@@ -100,7 +100,7 @@ header {
 
 .cv-container {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(10px);
     animation: fadeInUp 1s ease-out forwards;
 }
 
@@ -116,5 +116,5 @@ header {
 }
 
 .animate-show {
-  animation: fadeSlideUp 0.6s ease-out forwards;
+  animation: fadeSlideUp 0.7s ease-out forwards;
 }

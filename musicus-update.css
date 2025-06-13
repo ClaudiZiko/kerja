@@ -9,9 +9,9 @@ body {
     height: 100vh;
     margin: 0;
     overflow: hidden; /* Mencegah scroll pada body */
-    background-size: cover;
-    background-position: center;
-    transition: background 2s ease-in-out; /* Ini akan berfungsi jika Anda mengubah background-image langsung pada body */
+    background-size: cover; /* Ini tidak akan berlaku karena slideshow menutupi body */
+    background-position: center; /* Ini tidak akan berlaku karena slideshow menutupi body */
+    transition: background 2s ease-in-out; /* Ini juga tidak akan berlaku */
 }
 
 /* Slideshow Styles */
@@ -32,13 +32,10 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-}
-
-.mySlides img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Pastikan gambar menutupi seluruh area slide */
-    object-position: center; /* Memusatkan gambar */
+    /* TAMBAHKAN INI UNTUK MENGELOLA GAMBAR LATAR BELAKANG */
+    background-size: cover;       /* Pastikan gambar menutupi seluruh area slide */
+    background-position: center;  /* Memusatkan gambar */
+    background-repeat: no-repeat; /* Pastikan gambar tidak diulang */
 }
 
 .fade {
@@ -51,20 +48,28 @@ body {
     to { opacity: 1 }
 }
 
+/* HAPUS BAGIAN INI KARENA TIDAK ADA LAGI TAG IMG DI DALAM MYSLIDES */
+/* .mySlides img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+} */
+
+
 /* Music Player Styles */
 .music-player {
-    /* Mengatur posisi music player agar berada di tengah layar atau di lokasi yang diinginkan */
     position: relative; /* Diubah dari absolute agar flexbox pada body bisa memposisikannya */
     width: 90%;
     max-width: 500px;
     padding: 20px;
     border-radius: 20px;
     /* Efek kaca buram (Glassmorphism) */
-    background-color: rgba(0, 0, 0, 0.4); /* Background semi-transparan */
-    backdrop-filter: blur(10px); /* Efek buram pada latar belakang */
-    -webkit-backdrop-filter: blur(10px); /* Dukungan untuk browser Webkit */
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Border transparan */
-    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.5); /* Bayangan lebih kuat */
+    background-color: rgba(0, 0, 0, 0.65); /* Dulu 0.4, sekarang 0.65 (lebih gelap, lebih solid) */
+    backdrop-filter: blur(15px); /* Tingkatkan blur sedikit untuk efek yang lebih jelas */
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.4); /* Dulu 0.2, sekarang 0.4 (border lebih terlihat) */
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.6); /* Dulu 0.5, sekarang 0.6 (bayangan lebih kuat) */
     display: flex;
     flex-direction: column;
     align-items: center; /* Pusatkan item secara horizontal */
@@ -93,7 +98,7 @@ p {
     max-height: 200px; /* Tingkatkan sedikit tinggi maksimum untuk lebih banyak lagu */
     overflow-y: auto;
     scrollbar-width: thin; /* Untuk Firefox */
-    scrollbar-color: #777 #333; /* Untuk Firefox (thumb dan track) */
+    scrollbar-color: #999 #444; /* Untuk Firefox (thumb dan track) */
     margin-top: 10px; /* Spasi di atas playlist */
     padding-right: 5px; /* Untuk memberi ruang pada scrollbar */
 }
@@ -104,14 +109,14 @@ p {
 }
 
 .playlist-container::-webkit-scrollbar-track {
-    background: #333; /* Warna track scrollbar */
+    background: #444; /* Warna track scrollbar */
     border-radius: 10px;
 }
 
 .playlist-container::-webkit-scrollbar-thumb {
-    background: #777; /* Warna thumb scrollbar */
+    background: #999; /* Warna thumb scrollbar */
     border-radius: 10px;
-    border: 2px solid #333; /* Border agar lebih menonjol dari track */
+    border: 2px solid #444; /* Border agar lebih menonjol dari track */
 }
 
 .playlist {
@@ -123,17 +128,17 @@ p {
 .playlist li {
     cursor: pointer;
     padding: 12px 15px; /* Sedikit lebih banyak padding */
-    background-color: rgba(51, 51, 51, 0.7); /* Background item playlist yang sedikit transparan */
+    background-color: rgba(51, 51, 51, 0.85); /* Background item playlist yang sedikit transparan */
     border-radius: 10px; /* Sudut sedikit membulat */
     text-align: left; /* Teks rata kiri */
     margin: 8px 0; /* Spasi antar item */
     transition: background-color 0.3s ease, color 0.3s ease; /* Transisi halus */
     font-size: 1.05em;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Bayangan ringan pada setiap item */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4); /* Bayangan ringan pada setiap item */
 }
 
 .playlist li:hover {
-    background-color: rgba(85, 85, 85, 0.8); /* Warna hover yang lebih gelap */
+    background-color: rgba(85, 85, 85, 0.95); /* Warna hover yang lebih gelap */
 }
 
 /* Style untuk lagu yang sedang diputar */
@@ -142,7 +147,7 @@ p {
     color: #fff;
     font-weight: bold;
     border: 1px solid #0056b3; /* Border untuk menonjolkan */
-    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4); /* Bayangan biru */
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.5); /* Bayangan biru */
 }
 
 
@@ -154,7 +159,7 @@ p {
 }
 
 .controls button {
-    background-color: #3a3a3c;
+    background-color: #4a4a4c; /* Sedikit lebih terang */
     color: #fff;
     border: none;
     padding: 15px 30px; /* Perbesar ukuran tombol */
@@ -162,17 +167,16 @@ p {
     cursor: pointer;
     font-size: 1.2em; /* Perbesar ukuran font tombol */
     transition: background-color 0.3s ease, transform 0.2s ease; /* Transisi halus */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4); /* Bayangan pada tombol */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5); /* Bayangan pada tombol */
 }
 
 .controls button:hover {
-    background-color: #555;
-    transform: translateY(-2px); /* Efek sedikit terangkat saat hover */
+    background-color: #656565; /* Sedikit lebih terang */
 }
 
 .controls button:active {
-    background-color: #222;
-    transform: translateY(0); /* Kembali ke posisi semula saat diklik */
+    background-color: #333; /* Sedikit lebih terang */
+    transform: translateY(0);
 }
 
 #audioPlayer {

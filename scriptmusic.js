@@ -2,7 +2,7 @@
 let audioPlayer = document.getElementById("audioPlayer");
 let currentSongIndex = -1; // Untuk melacak lagu yang sedang diputar
 
-// Playlist lagu (tetap sama)
+// Playlist lagu
 const playlist = [
   { title: "Imagination - Shawn Mendes", src: "https://raw.githubusercontent.com/ClaudiZiko/OnlyMee/ClaudiZikoMyne/Media/Music/Imagination%20-Shawn%20Mendes%20(lyrics).mp3" },
   { title: "Dandelions - Ruth B.", src: "https://raw.githubusercontent.com/ClaudiZiko/OnlyMee/ClaudiZikoMyne/Media/Music/Ruth%20B.%20-%20Dandelions%20(Lyrics).mp3" },
@@ -31,7 +31,8 @@ function updatePlayerUI() {
 
   // Perbarui kelas 'active-song' di playlist
   playlistItems.forEach((item, idx) => {
-    if (idx === currentSongIndex && !audioPlayer.paused) { // Hanya aktif jika sedang diputar
+    // Hanya aktif jika lagu ini yang sedang diputar DAN audio tidak dijeda
+    if (idx === currentSongIndex && !audioPlayer.paused) {
       item.classList.add("active-song");
     } else {
       item.classList.remove("active-song");
@@ -39,7 +40,7 @@ function updatePlayerUI() {
   });
 }
 
-// Memuat playlist ke DOM (tetap sama, tapi panggil updatePlayerUI di event click)
+// Memuat playlist ke DOM
 function loadPlaylist() {
   const playlistContainer = document.getElementById("playlist");
   playlistContainer.innerHTML = "";
@@ -48,11 +49,11 @@ function loadPlaylist() {
     li.textContent = song.title;
     li.dataset.index = index;
     li.addEventListener("click", () => {
+      // Jika lagu yang sama diklik, toggle pause/play
+      // Jika lagu berbeda diklik, putar lagu baru
       if (currentSongIndex === index) {
-        // Jika lagu yang sama diklik, toggle pause/play
         togglePause();
       } else {
-        // Jika lagu berbeda diklik, putar lagu baru
         playSong(index);
       }
     });
@@ -71,11 +72,9 @@ function playSong(index) {
 
   // Coba putar audio
   audioPlayer.play().then(() => {
-    // Berhasil play
     console.log("Audio started playing.");
     updatePlayerUI(); // Perbarui UI setelah berhasil play
   }).catch(error => {
-    // Gagal play (misalnya Autoplay Blocked)
     console.error("Autoplay Blocked or other error:", error);
     alert("Pemutaran otomatis diblokir oleh browser. Silakan klik tombol 'Play' utama atau pilih lagu lagi.");
     audioPlayer.pause(); // Pastikan dalam keadaan pause jika diblokir
@@ -90,7 +89,7 @@ function togglePause() {
     playSong(0);
     return; // Keluar dari fungsi setelah memanggil playSong
   } else if (playlist.length === 0) {
-    console.warn("Tidak ada lagu di playlist.");
+    console.warn("Tidak ada lagu di playlist untuk diputar.");
     alert("Tidak ada lagu di playlist untuk diputar.");
     return;
   }
@@ -125,7 +124,6 @@ audioPlayer.addEventListener("ended", () => {
 });
 
 // Event listeners untuk memperbarui tombol secara otomatis jika status audioPlayer berubah
-// Ini penting untuk menangani perubahan status dari luar kendali kode (misal: OS, kontrol media)
 audioPlayer.addEventListener('play', () => {
     console.log("Audio 'play' event triggered.");
     updatePlayerUI();
@@ -134,13 +132,6 @@ audioPlayer.addEventListener('pause', () => {
     console.log("Audio 'pause' event triggered.");
     updatePlayerUI();
 });
-audioPlayer.addEventListener('timeupdate', () => {
-    // Ini bisa di uncomment jika updatePlayerUI() tidak memiliki operasi DOM berat
-    // Atau bisa digunakan untuk update progress bar jika ada.
-    // console.log("Audio 'timeupdate' event triggered.");
-    // updatePlayerUI();
-});
-
 
 // Panggil fungsi loadPlaylist saat halaman dimuat
 document.addEventListener("DOMContentLoaded", () => {
@@ -152,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
 document.getElementById("playPauseBtn").addEventListener("click", togglePause);
 
 
-// Slideshow Logic (tetap sama)
+// Slideshow Logic
 let slideIndex = 0;
 
 function showSlides() {
@@ -166,4 +157,16 @@ function showSlides() {
   setTimeout(showSlides, 5000);
 }
 
+// Jalankan slideshow saat halaman dimuat
 showSlides();
+
+// --- BAGIAN BARU UNTUK MENCEGAH DOWNLOAD GAMBAR (Metode 1: Context Menu) ---
+// Ini dapat ditambahkan di bagian bawah script Anda.
+const slideshowContainer = document.querySelector(".slideshow-container");
+if (slideshowContainer) {
+    slideshowContainer.addEventListener('contextmenu', function(e) {
+        e.preventDefault(); // Mencegah munculnya context menu
+        console.log("Klik kanan diblokir pada slideshow.");
+    });
+}
+// --- AKHIR BAGIAN PENCEGAHAN DOWNLOAD ---

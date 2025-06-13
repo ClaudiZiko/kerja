@@ -17,17 +17,29 @@ playlist.forEach(song => {
   song.src += "?nocache=" + new Date().getTime();
 });
 
-// Helper function untuk memperbarui teks tombol play/pause
-function updatePlayPauseButton() {
+// Helper function untuk memperbarui teks tombol play/pause dan kelas aktif
+function updatePlayerUI() {
   const playPauseBtn = document.getElementById("playPauseBtn");
+  const playlistItems = document.querySelectorAll(".playlist li");
+
+  // Perbarui teks tombol Play/Pause
   if (audioPlayer.paused) {
     playPauseBtn.textContent = "▶️ Play";
   } else {
     playPauseBtn.textContent = "⏸ Pause";
   }
+
+  // Perbarui kelas 'active-song' di playlist
+  playlistItems.forEach((item, idx) => {
+    if (idx === currentSongIndex && !audioPlayer.paused) { // Hanya aktif jika sedang diputar
+      item.classList.add("active-song");
+    } else {
+      item.classList.remove("active-song");
+    }
+  });
 }
 
-// Memuat playlist ke DOM (tetap sama)
+// Memuat playlist ke DOM (tetap sama, tapi panggil updatePlayerUI di event click)
 function loadPlaylist() {
   const playlistContainer = document.getElementById("playlist");
   playlistContainer.innerHTML = "";
@@ -36,13 +48,12 @@ function loadPlaylist() {
     li.textContent = song.title;
     li.dataset.index = index;
     li.addEventListener("click", () => {
-      // Jika lagu yang sama diklik dan sedang diputar, jeda.
-      // Jika lagu yang sama diklik dan dijeda, lanjutkan.
-      // Jika lagu berbeda diklik, putar lagu baru.
       if (currentSongIndex === index) {
-        togglePause(); // Gunakan togglePause untuk lagu yang sama
+        // Jika lagu yang sama diklik, toggle pause/play
+        togglePause();
       } else {
-        playSong(index); // Putar lagu baru jika berbeda
+        // Jika lagu berbeda diklik, putar lagu baru
+        playSong(index);
       }
     });
     playlistContainer.appendChild(li);
@@ -58,51 +69,51 @@ function playSong(index) {
     audioPlayer.load(); // Memuat ulang audio jika sumber berubah
   }
 
-  // Hapus kelas 'active-song' dari semua item playlist sebelumnya
-  const playlistItems = document.querySelectorAll(".playlist li");
-  playlistItems.forEach(item => {
-    item.classList.remove("active-song");
-  });
-  // Tambahkan kelas 'active-song' ke lagu yang sedang diputar/dimainkan
-  if (currentSongIndex !== -1) {
-    playlistItems[currentSongIndex].classList.add("active-song");
-  }
-
   // Coba putar audio
   audioPlayer.play().then(() => {
-    updatePlayPauseButton(); // Perbarui tombol setelah berhasil play
+    // Berhasil play
+    console.log("Audio started playing.");
+    updatePlayerUI(); // Perbarui UI setelah berhasil play
   }).catch(error => {
-    console.log("Autoplay Blocked or other error:", error);
+    // Gagal play (misalnya Autoplay Blocked)
+    console.error("Autoplay Blocked or other error:", error);
     alert("Pemutaran otomatis diblokir oleh browser. Silakan klik tombol 'Play' utama atau pilih lagu lagi.");
-    updatePlayPauseButton(); // Pastikan tombol diperbarui bahkan jika ada error
+    audioPlayer.pause(); // Pastikan dalam keadaan pause jika diblokir
+    updatePlayerUI(); // Perbarui UI agar tombol menunjukkan Play
   });
 }
 
-// Fungsi untuk toggle play/pause (hanya jeda/lanjutkan lagu yang sedang diputar)
+// Fungsi untuk toggle play/pause (untuk tombol utama)
 function togglePause() {
-  // Jika belum ada lagu yang dipilih, putar lagu pertama
+  // Jika belum ada lagu yang dipilih, putar lagu pertama dari playlist
   if (currentSongIndex === -1 && playlist.length > 0) {
     playSong(0);
-    return; // Keluar setelah memanggil playSong
-  } else if (currentSongIndex === -1 && playlist.length === 0) {
-    console.warn("Tidak ada lagu di playlist untuk diputar.");
+    return; // Keluar dari fungsi setelah memanggil playSong
+  } else if (playlist.length === 0) {
+    console.warn("Tidak ada lagu di playlist.");
+    alert("Tidak ada lagu di playlist untuk diputar.");
     return;
   }
 
-  if (audioPlayer.paused) { // Jika sedang dijeda, mainkan
-    audioPlayer.play().catch(error => {
-      console.log("Autoplay Blocked or other error:", error);
-      alert("Pemutaran otomatis diblokir oleh browser. Silakan klik tombol 'Play' utama atau pilih lagu lagi.");
+  if (audioPlayer.paused) { // Jika sedang dijeda, coba mainkan
+    audioPlayer.play().then(() => {
+        console.log("Audio resumed playing.");
+        updatePlayerUI();
+    }).catch(error => {
+        console.error("Failed to resume playback:", error);
+        alert("Tidak dapat melanjutkan pemutaran. Coba klik lagu di daftar.");
+        updatePlayerUI(); // Pastikan UI diupdate ke Play jika gagal
     });
   } else { // Jika sedang dimainkan, jeda
     audioPlayer.pause();
+    console.log("Audio paused.");
+    updatePlayerUI(); // Perbarui UI segera setelah pause
   }
-  updatePlayPauseButton(); // Selalu perbarui tombol setelah aksi
 }
-
 
 // Event listener untuk saat lagu selesai diputar (putar lagu berikutnya)
 audioPlayer.addEventListener("ended", () => {
+  console.log("Song ended. Playing next...");
   currentSongIndex++;
   if (currentSongIndex < playlist.length) {
     playSong(currentSongIndex);
@@ -114,14 +125,27 @@ audioPlayer.addEventListener("ended", () => {
 });
 
 // Event listeners untuk memperbarui tombol secara otomatis jika status audioPlayer berubah
-audioPlayer.addEventListener('play', updatePlayPauseButton);
-audioPlayer.addEventListener('pause', updatePlayPauseButton);
-audioPlayer.addEventListener('timeupdate', updatePlayPauseButton); // Optional: Untuk lebih reaktif
+// Ini penting untuk menangani perubahan status dari luar kendali kode (misal: OS, kontrol media)
+audioPlayer.addEventListener('play', () => {
+    console.log("Audio 'play' event triggered.");
+    updatePlayerUI();
+});
+audioPlayer.addEventListener('pause', () => {
+    console.log("Audio 'pause' event triggered.");
+    updatePlayerUI();
+});
+audioPlayer.addEventListener('timeupdate', () => {
+    // Ini bisa di uncomment jika updatePlayerUI() tidak memiliki operasi DOM berat
+    // Atau bisa digunakan untuk update progress bar jika ada.
+    // console.log("Audio 'timeupdate' event triggered.");
+    // updatePlayerUI();
+});
+
 
 // Panggil fungsi loadPlaylist saat halaman dimuat
 document.addEventListener("DOMContentLoaded", () => {
     loadPlaylist();
-    updatePlayPauseButton(); // Inisialisasi teks tombol saat pertama kali dimuat
+    updatePlayerUI(); // Inisialisasi UI saat pertama kali dimuat
 });
 
 // Pastikan tombol play/pause memiliki event listener

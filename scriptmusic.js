@@ -3,24 +3,6 @@ let audioPlayer = document.getElementById("audioPlayer");
 let isPlaying = false;
 let currentSongIndex = -1; // Untuk melacak lagu yang sedang diputar
 
-// Fungsi untuk toggle play/pause
-function togglePause() {
-  if (isPlaying) {
-    audioPlayer.pause();
-    isPlaying = false;
-    document.getElementById("playPauseBtn").textContent = "▶️ Play"; // Tombol berubah menjadi Play
-  } else {
-    // Jika tidak ada lagu yang sedang diputar, pilih lagu pertama atau yang aktif
-    if (currentSongIndex === -1) {
-      playSong(0);
-    } else {
-      audioPlayer.play().catch(error => console.log("Autoplay Blocked: ", error));
-      isPlaying = true;
-      document.getElementById("playPauseBtn").textContent = "⏸ Pause"; // Tombol berubah menjadi Pause
-    }
-  }
-}
-
 // Playlist lagu
 const playlist = [
   { title: "Imagination - Shawn Mendes", src: "https://raw.githubusercontent.com/ClaudiZiko/OnlyMee/ClaudiZikoMyne/Media/Music/Imagination%20-Shawn%20Mendes%20(lyrics).mp3" },
@@ -31,54 +13,112 @@ const playlist = [
   { title: "Etham - 12_45 Stripped", src: "https://raw.githubusercontent.com/ClaudiZiko/OnlyMee/ClaudiZikoMyne/Media/Music/Etham%20-%2012_45%20(Stripped%20_%20Lyric%20Video)(MP3_160K).mp3"}
 ];
 
-// Memuat playlist
+// Tambahkan parameter nocache ke URL lagu (lakukan sekali di awal)
+playlist.forEach(song => {
+  song.src += "?nocache=" + new Date().getTime();
+});
+
+// Fungsi untuk toggle play/pause
+function togglePause() {
+  const playPauseBtn = document.getElementById("playPauseBtn");
+  if (isPlaying) {
+    audioPlayer.pause();
+    isPlaying = false;
+    playPauseBtn.textContent = "▶️ Play";
+  } else {
+    // Jika belum ada lagu yang dipilih, putar lagu pertama
+    if (currentSongIndex === -1) {
+      playSong(0);
+    } else {
+      audioPlayer.play().then(() => {
+        isPlaying = true;
+        playPauseBtn.textContent = "⏸ Pause";
+      }).catch(error => {
+        console.log("Autoplay Blocked or other error: ", error);
+        // Mungkin tampilkan pesan ke pengguna jika autoplay diblokir
+        alert("Pemutaran otomatis diblokir oleh browser. Silakan klik 'Play' untuk memulai.");
+      });
+    }
+  }
+}
+
+// Memuat playlist ke DOM
 function loadPlaylist() {
   const playlistContainer = document.getElementById("playlist");
   playlistContainer.innerHTML = ""; // Bersihkan daftar sebelum menambah
   playlist.forEach((song, index) => {
     const li = document.createElement("li");
     li.textContent = song.title;
-    li.onclick = function() {
-      playSong(index);
-    };
+    li.dataset.index = index; // Simpan indeks sebagai data attribute
+    li.addEventListener("click", () => playSong(index)); // Gunakan addEventListener
     playlistContainer.appendChild(li);
   });
 }
 
 // Fungsi untuk memainkan lagu
 function playSong(index) {
-  if (currentSongIndex === index) {
-    // Jika lagu yang sama dipilih, toggle play/pause
+  const playPauseBtn = document.getElementById("playPauseBtn");
+
+  // Hapus kelas 'active-song' dari semua item playlist sebelumnya
+  const playlistItems = document.querySelectorAll(".playlist li");
+  playlistItems.forEach(item => {
+    item.classList.remove("active-song");
+  });
+
+  if (currentSongIndex === index && isPlaying) {
+    // Jika lagu yang sama sudah dimainkan dan sedang aktif, cukup toggle pause
     togglePause();
-  } else {
-    // Set source audio dari playlist
-    audioPlayer.src = playlist[index].src;
-
-    // Pastikan audio dimuat ulang sebelum dimainkan
-    audioPlayer.load();
-
-    // Mulai pemutaran lagu
-    audioPlayer.play().catch(error => {
-      console.log("Autoplay Blocked: ", error); // Log error jika autoplay diblokir
+    return; // Keluar dari fungsi
+  } else if (currentSongIndex === index && !isPlaying) {
+    // Jika lagu yang sama dipilih tapi sedang dijeda, lanjutkan putar
+    audioPlayer.play().then(() => {
+      isPlaying = true;
+      playPauseBtn.textContent = "⏸ Pause";
+      playlistItems[index].classList.add("active-song"); // Tandai sebagai aktif
+    }).catch(error => {
+      console.log("Autoplay Blocked or other error: ", error);
+      alert("Pemutaran otomatis diblokir oleh browser. Silakan klik 'Play' untuk memulai.");
     });
-
-    // Perbarui status pemutaran
-    isPlaying = true;
-    currentSongIndex = index;
-    document.getElementById("playPauseBtn").textContent = "⏸ Pause"; // Tombol Pause
+    return; // Keluar dari fungsi
   }
+
+  // Jika lagu yang berbeda atau lagu yang sama tetapi belum dimainkan/baru dipilih
+  currentSongIndex = index;
+  audioPlayer.src = playlist[currentSongIndex].src;
+
+  // Pastikan audio dimuat ulang sebelum dimainkan
+  audioPlayer.load();
+
+  // Mulai pemutaran lagu
+  audioPlayer.play().then(() => {
+    isPlaying = true;
+    playPauseBtn.textContent = "⏸ Pause";
+    playlistItems[currentSongIndex].classList.add("active-song"); // Tandai sebagai aktif
+  }).catch(error => {
+    console.log("Autoplay Blocked or other error: ", error);
+    alert("Pemutaran otomatis diblokir oleh browser. Silakan klik 'Play' untuk memulai.");
+  });
 }
 
-// Memanggil fungsi loadPlaylist saat halaman dimuat
-loadPlaylist();
-
-// Cache query unik
-playlist.forEach(song => {
-  song.src += "?nocache=" + new Date().getTime();
+// Event listener untuk saat lagu selesai diputar (putar lagu berikutnya)
+audioPlayer.addEventListener("ended", () => {
+  currentSongIndex++;
+  if (currentSongIndex < playlist.length) {
+    playSong(currentSongIndex);
+  } else {
+    // Jika sudah di akhir playlist, kembali ke lagu pertama dan mulai lagi (loop)
+    currentSongIndex = 0;
+    playSong(currentSongIndex);
+    // Atau jika ingin berhenti setelah playlist selesai:
+    // isPlaying = false;
+    // document.getElementById("playPauseBtn").textContent = "▶️ Play";
+    // currentSongIndex = -1; // Reset index
+  }
 });
 
-// MUAT PLAYLIST SETELAH URL DIPERBAHARUI
-loadPlaylist();
+// Panggil fungsi loadPlaylist saat halaman dimuat
+document.addEventListener("DOMContentLoaded", loadPlaylist);
+document.getElementById("playPauseBtn").addEventListener("click", togglePause); // Event listener untuk tombol
 
 // Slideshow Logic
 let slideIndex = 0;
@@ -89,9 +129,10 @@ function showSlides() {
     slides[i].style.display = "none";
   }
   slideIndex++;
-  if (slideIndex > slides.length) {slideIndex = 1}
+  if (slideIndex > slides.length) {slideIndex = 1} // Kembali ke slide pertama jika sudah mencapai akhir
   slides[slideIndex-1].style.display = "block";
   setTimeout(showSlides, 5000); // Ganti gambar setiap 5 detik
 }
 
-showSlides(); // Jalankan slideshow saat halaman dimuat
+// Jalankan slideshow saat halaman dimuat
+showSlides();
